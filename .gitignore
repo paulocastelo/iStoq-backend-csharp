@@ -1,66 +1,69 @@
-## Arquivos de build
+## Build
+[Bb]in/
+[Oo]bj/
+artifacts/
 [Dd]ebug/
 [Rr]elease/
 x64/
 x86/
 bld/
-[Bb]in/
-[Oo]bj/
-artifacts/
 logs/
 *.log
 *.binlog
 
-## Arquivos temporários e de backup
+## Temporary Files
 ~$*
 *~
+*.tmp
 
-## Arquivos de lock e scaffolding
+## Lock files
 project.lock.json
 project.fragment.lock.json
+
+## Scaffolding
 ScaffoldingReadMe.txt
 
 ## NuGet
 *.nupkg
 *.snupkg
+packages/
 
-## Testes
+## Test Results
 [Tt]est[Rr]esult*/
 TestResults/
 BuildLog.*
-TestStore/
 *.coverage
 *.coveragexml
-
-## Code Coverage
 CodeCoverage/
-*.coverage
-*.coveragexml
+TestStore/
 
-## Arquivos da IDE - Visual Studio
+## IDEs
 .vs/
 .vscode/
+.idea/
+
+# Rider
+*.sln.iml
+
+# VS
 *.suo
 *.user
 *.userosscache
 *.sln.docstates
 
-## Copilot
-copilot-chat/
-CopilotIndices/
-*.db
-
-## Rider (caso use JetBrains também)
-.idea/
-*.sln.iml
-
-## Arquivos de rastreio e cache de design-time
+## Design-Time, Index, Cache
 *.vsidx
 *.dtbcache.*
 *.sdf
 *.cache
 *.tss
+*.db
 
-## Outros arquivos ocultos e irrelevantes
-*.DS_Store
+## GitHub Copilot
+copilot-chat/
+CopilotIndices/
+
+## OS files
+.DS_Store
 Thumbs.db
+desktop.ini

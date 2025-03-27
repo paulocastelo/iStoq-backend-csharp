@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
+﻿using iStoq.Application.DTOs;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -8,7 +8,7 @@ using System.Text;
 namespace iStoq.API.Controllers;
 
 [ApiController]
-[Route("auth")]
+[Route("api/[controller]")]
 public class AuthController : ControllerBase
 {
     private readonly IConfiguration _configuration;
@@ -19,49 +19,29 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("login")]
-    public IActionResult Login([FromBody] LoginRequest request)
+    public IActionResult Login([FromBody] LoginRequestDto login)
     {
-        // Login fake fixo
-        if (request.Username != "admin" || request.Password != "admin")
-            return Unauthorized(new { message = "Usuário ou senha inválidos." });
-
-        var token = GenerateJwtToken(request.Username);
-        return Ok(token);
-    }
-
-    private object GenerateJwtToken(string username)
-    {
-        var jwtKey = _configuration["Jwt:Key"]!;
-        var jwtIssuer = _configuration["Jwt:Issuer"]!;
-        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
-        var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+        // Aqui usamos login fixo apenas como exemplo
+        if (login.Username != "admin" || login.Password != "admin123")
+            return Unauthorized(new { message = "Credenciais inválidas" });
 
         var claims = new[]
         {
-            new Claim(JwtRegisteredClaimNames.Sub, username),
-            new Claim("role", "admin"),
-            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+            new Claim(ClaimTypes.Name, login.Username),
+            new Claim(ClaimTypes.Role, "Admin")
         };
 
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!));
+        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
         var token = new JwtSecurityToken(
-            issuer: jwtIssuer,
-            audience: null,
+            issuer: _configuration["Jwt:Issuer"],
             claims: claims,
-            expires: DateTime.UtcNow.AddHours(1),
-            signingCredentials: credentials
+            expires: DateTime.UtcNow.AddHours(2),
+            signingCredentials: creds
         );
 
-        return new
-        {
-            access_token = new JwtSecurityTokenHandler().WriteToken(token),
-            token_type = "Bearer",
-            expires_in = 3600
-        };
-    }
-}
+        var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
 
-public class LoginRequest
-{
-    public string Username { get; set; } = string.Empty;
-    public string Password { get; set; } = string.Empty;
+        return Ok(new { token = tokenString });
+    }
 }

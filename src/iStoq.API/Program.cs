@@ -48,6 +48,9 @@ builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ISupplierService, SupplierService>();
 builder.Services.AddScoped<IStockMovementService, StockMovementService>();
 
+// Serviço de autenticação
+builder.Services.AddScoped<IAuthService, AuthService>();
+
 // Banco de dados
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>(options =>
