@@ -1,0 +1,139 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\projetos\\iStoq-suite\\backends\\csharp\\src\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{4567669B-886B-4ABE-83C4-8E4763A233CA}|iStoq.Infrastructure\\iStoq.Infrastructure.csproj|c:\\projetos\\istoq-suite\\backends\\csharp\\src\\istoq.infrastructure\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4567669B-886B-4ABE-83C4-8E4763A233CA}|iStoq.Infrastructure\\iStoq.Infrastructure.csproj|solutionrelative:istoq.infrastructure\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7BD13283-0BE5-415A-818A-3D1E94E82F74}|iStoq.API\\iStoq.API.csproj|c:\\projetos\\istoq-suite\\backends\\csharp\\src\\istoq.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{7BD13283-0BE5-415A-818A-3D1E94E82F74}|iStoq.API\\iStoq.API.csproj|solutionrelative:istoq.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{535943CC-7E93-4488-B72A-D203A32785D8}|iStoq.Domain\\iStoq.Domain.csproj|c:\\projetos\\istoq-suite\\backends\\csharp\\src\\istoq.domain\\entities\\stockmovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{535943CC-7E93-4488-B72A-D203A32785D8}|iStoq.Domain\\iStoq.Domain.csproj|solutionrelative:istoq.domain\\entities\\stockmovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{535943CC-7E93-4488-B72A-D203A32785D8}|iStoq.Domain\\iStoq.Domain.csproj|c:\\projetos\\istoq-suite\\backends\\csharp\\src\\istoq.domain\\entities\\products.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{535943CC-7E93-4488-B72A-D203A32785D8}|iStoq.Domain\\iStoq.Domain.csproj|solutionrelative:istoq.domain\\entities\\products.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{535943CC-7E93-4488-B72A-D203A32785D8}|iStoq.Domain\\iStoq.Domain.csproj|c:\\projetos\\istoq-suite\\backends\\csharp\\src\\istoq.domain\\entities\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{535943CC-7E93-4488-B72A-D203A32785D8}|iStoq.Domain\\iStoq.Domain.csproj|solutionrelative:istoq.domain\\entities\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{535943CC-7E93-4488-B72A-D203A32785D8}|iStoq.Domain\\iStoq.Domain.csproj|c:\\projetos\\istoq-suite\\backends\\csharp\\src\\istoq.domain\\entities\\supplier.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{535943CC-7E93-4488-B72A-D203A32785D8}|iStoq.Domain\\iStoq.Domain.csproj|solutionrelative:istoq.domain\\entities\\supplier.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7BD13283-0BE5-415A-818A-3D1E94E82F74}|iStoq.API\\iStoq.API.csproj|c:\\projetos\\istoq-suite\\backends\\csharp\\src\\istoq.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7BD13283-0BE5-415A-818A-3D1E94E82F74}|iStoq.API\\iStoq.API.csproj|solutionrelative:istoq.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "StockMovement.cs",
+              "DocumentMoniker": "C:\\projetos\\iStoq-suite\\backends\\csharp\\src\\iStoq.Domain\\Entities\\StockMovement.cs",
+              "RelativeDocumentMoniker": "iStoq.Domain\\Entities\\StockMovement.cs",
+              "ToolTip": "C:\\projetos\\iStoq-suite\\backends\\csharp\\src\\iStoq.Domain\\Entities\\StockMovement.cs",
+              "RelativeToolTip": "iStoq.Domain\\Entities\\StockMovement.cs",
+              "ViewState": "AgIAABQAAAAAAAAAAAAQwBgAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-27T03:45:08.001Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Products.cs",
+              "DocumentMoniker": "C:\\projetos\\iStoq-suite\\backends\\csharp\\src\\iStoq.Domain\\Entities\\Products.cs",
+              "RelativeDocumentMoniker": "iStoq.Domain\\Entities\\Products.cs",
+              "ToolTip": "C:\\projetos\\iStoq-suite\\backends\\csharp\\src\\iStoq.Domain\\Entities\\Products.cs",
+              "RelativeToolTip": "iStoq.Domain\\Entities\\Products.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAowBEAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-27T03:44:54.574Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Category.cs",
+              "DocumentMoniker": "C:\\projetos\\iStoq-suite\\backends\\csharp\\src\\iStoq.Domain\\Entities\\Category.cs",
+              "RelativeDocumentMoniker": "iStoq.Domain\\Entities\\Category.cs",
+              "ToolTip": "C:\\projetos\\iStoq-suite\\backends\\csharp\\src\\iStoq.Domain\\Entities\\Category.cs",
+              "RelativeToolTip": "iStoq.Domain\\Entities\\Category.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAowBQAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-27T03:44:26.877Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Supplier.cs",
+              "DocumentMoniker": "C:\\projetos\\iStoq-suite\\backends\\csharp\\src\\iStoq.Domain\\Entities\\Supplier.cs",
+              "RelativeDocumentMoniker": "iStoq.Domain\\Entities\\Supplier.cs",
+              "ToolTip": "C:\\projetos\\iStoq-suite\\backends\\csharp\\src\\iStoq.Domain\\Entities\\Supplier.cs",
+              "RelativeToolTip": "iStoq.Domain\\Entities\\Supplier.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAxwBAAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-27T03:43:49.596Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "C:\\projetos\\iStoq-suite\\backends\\csharp\\src\\iStoq.Infrastructure\\Data\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "iStoq.Infrastructure\\Data\\AppDbContext.cs",
+              "ToolTip": "C:\\projetos\\iStoq-suite\\backends\\csharp\\src\\iStoq.Infrastructure\\Data\\AppDbContext.cs",
+              "RelativeToolTip": "iStoq.Infrastructure\\Data\\AppDbContext.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAAABMAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-27T03:36:33.449Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\projetos\\iStoq-suite\\backends\\csharp\\src\\iStoq.API\\appsettings.json",
+              "RelativeDocumentMoniker": "iStoq.API\\appsettings.json",
+              "ToolTip": "C:\\projetos\\iStoq-suite\\backends\\csharp\\src\\iStoq.API\\appsettings.json",
+              "RelativeToolTip": "iStoq.API\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-03-27T03:33:14.558Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\projetos\\iStoq-suite\\backends\\csharp\\src\\iStoq.API\\Program.cs",
+              "RelativeDocumentMoniker": "iStoq.API\\Program.cs",
+              "ToolTip": "C:\\projetos\\iStoq-suite\\backends\\csharp\\src\\iStoq.API\\Program.cs",
+              "RelativeToolTip": "iStoq.API\\Program.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAswBMAAABFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-27T03:27:53.12Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
