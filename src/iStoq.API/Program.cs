@@ -2,59 +2,93 @@
 using iStoq.Infrastructure.Data;
 using iStoq.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// JWT Config
+var jwtKey = builder.Configuration["Jwt:Key"];
+var jwtIssuer = builder.Configuration["Jwt:Issuer"];
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.RequireHttpsMetadata = true;
+    options.SaveToken = true;
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = false,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = jwtIssuer,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey!))
+    };
+});
+
+builder.Services.AddAuthorization();
+
+// Add services to the container
+builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddControllers();
 
+builder.Services.AddAuthorization();
+
+// Serviços da aplicação
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ISupplierService, SupplierService>();
 builder.Services.AddScoped<IStockMovementService, StockMovementService>();
 
+// Banco de dados
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-
-IServiceCollection serviceCollection = builder.Services.AddDbContext<AppDbContext>(options =>
+builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(connectionString));
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
+// Pipeline HTTP
 app.UseHttpsRedirection();
+
+// Ativa autenticação/autorizações
+app.UseAuthentication();
+app.UseAuthorization();
+
+// Swagger liberado em qualquer ambiente
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "iStoq API V1");
+    c.RoutePrefix = "docs";
+});
+
+// Protege acesso ao /docs (Swagger)
+app.UseWhen(context => context.Request.Path.StartsWithSegments("/docs"), branch =>
+{
+    branch.Use(async (ctx, next) =>
+    {
+        if (!ctx.User.Identity?.IsAuthenticated ?? false)
+        {
+            ctx.Response.StatusCode = 401;
+            await ctx.Response.WriteAsync("Acesso não autorizado ao Swagger.");
+            return;
+        }
+
+        await next();
+    });
+});
 
 app.MapControllers();
 
-//// Exemplo antigo de rota mínima (pode remover se quiser)
-//var summaries = new[]
-//{
-//    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-//};
-
-//app.MapGet("/weatherforecast", () =>
-//{
-//    var forecast = Enumerable.Range(1, 5).Select(index =>
-//        new WeatherForecast
-//        (
-//            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-//            Random.Shared.Next(-20, 55),
-//            summaries[Random.Shared.Next(summaries.Length)]
-//        ))
-//        .ToArray();
-//    return forecast;
-//})
-//.WithName("GetWeatherForecast");
+// Inicializa o banco com dados de seed
+DbInitializer.Initialize(app.Services, app.Environment);
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

@@ -1,12 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-namespace iStoq.Domain.Entities;
+﻿namespace iStoq.Domain.Entities;
 
 public class StockMovement
 {
+    public Guid Id { get; set; }
+    public Guid ProductId { get; set; }
+    public Product Product { get; set; } = null!;
+    public int Quantity { get; set; }
+    public string Type { get; set; } = string.Empty;
+    public string Notes { get; set; } = string.Empty;
+    public DateTime Date { get; set; }
+
+    // Construtor vazio para EF
+    public StockMovement() { }
+
+    // Construtor para uso no código
+    public StockMovement(Guid productId, int quantity, string type, string notes, DateTime date)
+    {
+        ProductId = productId;
+        Quantity = quantity;
+        Type = type;
+        Notes = notes;
+        Date = date;
+    }
+
     public StockMovement(Guid productId, int quantity, string type, string notes)
     {
         ProductId = productId;
@@ -15,14 +31,7 @@ public class StockMovement
         Notes = notes;
     }
 
-    public Guid Id { get; private set; } = Guid.NewGuid();
-    public Guid ProductId { get; private set; }
-    public int Quantity { get; private set; }
-    public string Type { get; private set; } // IN or OUT
-    public string Notes { get; private set; }
-    public DateTime Date { get; private set; } = DateTime.UtcNow;
-
-    public StockMovement() { }
+    // Atualização controlada
     public void Update(Guid productId, int quantity, string type, string notes)
     {
         ProductId = productId;
