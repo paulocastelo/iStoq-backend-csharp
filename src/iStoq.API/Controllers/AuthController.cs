@@ -1,4 +1,5 @@
 ﻿using iStoq.Application.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -6,7 +7,7 @@ using System.Security.Claims;
 using System.Text;
 
 namespace iStoq.API.Controllers;
-
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public class AuthController : ControllerBase

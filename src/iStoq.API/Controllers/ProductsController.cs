@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using iStoq.Application.DTOs;
 using iStoq.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace iStoq.API.Controllers;
-
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public class ProductsController : ControllerBase
