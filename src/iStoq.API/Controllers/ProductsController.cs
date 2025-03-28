@@ -27,14 +27,14 @@ public class ProductsController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Create(ProductCreateDto dto)
+    public IActionResult Create(ProductDto dto)
     {
         var created = _service.Create(dto);
         return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
     }
 
     [HttpPut("{id}")]
-    public IActionResult Update(Guid id, ProductUpdateDto dto)
+    public IActionResult Update(Guid id, ProductDto dto)
     {
         var updated = _service.Update(id, dto);
         if (updated == null) return NotFound();

@@ -21,7 +21,7 @@ namespace iStoq.Tests.API.Controllers
         [Fact]
         public void GetAll_ShouldReturn200()
         {
-            _serviceMock.Setup(s => s.GetAll()).Returns(new List<StockMovementReadDto>
+            _serviceMock.Setup(s => s.GetAll()).Returns(new List<StockMovementDto>
             {
                 new() { Id = Guid.NewGuid(), ProductId = Guid.NewGuid(), Quantity = 10, Type = "IN", Notes = "Teste" }
             });
@@ -29,14 +29,14 @@ namespace iStoq.Tests.API.Controllers
             var result = _controller.GetAll();
 
             var ok = Assert.IsType<OkObjectResult>(result);
-            var list = Assert.IsAssignableFrom<IEnumerable<StockMovementReadDto>>(ok.Value);
+            var list = Assert.IsAssignableFrom<IEnumerable<StockMovementDto>>(ok.Value);
             Assert.Single(list);
         }
 
         [Fact]
         public void Create_ShouldReturn201()
         {
-            var dto = new StockMovementCreateDto
+            var dto = new StockMovementDto
             {
                 ProductId = Guid.NewGuid(),
                 Quantity = 5,
@@ -44,7 +44,7 @@ namespace iStoq.Tests.API.Controllers
                 Notes = "Venda"
             };
 
-            var output = new StockMovementReadDto
+            var output = new StockMovementDto
             {
                 Id = Guid.NewGuid(),
                 ProductId = dto.ProductId,
@@ -59,7 +59,7 @@ namespace iStoq.Tests.API.Controllers
             var result = _controller.Create(dto);
 
             var created = Assert.IsType<CreatedAtActionResult>(result);
-            var value = Assert.IsType<StockMovementReadDto>(created.Value);
+            var value = Assert.IsType<StockMovementDto>(created.Value);
             Assert.Equal("OUT", value.Type);
         }
 
@@ -67,7 +67,7 @@ namespace iStoq.Tests.API.Controllers
         public void GetById_ShouldReturnOk_WhenExists()
         {
             var id = Guid.NewGuid();
-            var movement = new StockMovementReadDto
+            var movement = new StockMovementDto
             {
                 Id = id,
                 ProductId = Guid.NewGuid(),
@@ -78,14 +78,14 @@ namespace iStoq.Tests.API.Controllers
             _serviceMock.Setup(s => s.GetById(id)).Returns(movement);
             var result = _controller.GetById(id);
             var ok = Assert.IsType<OkObjectResult>(result);
-            var value = Assert.IsType<StockMovementReadDto>(ok.Value);
+            var value = Assert.IsType<StockMovementDto>(ok.Value);
             Assert.Equal("IN", value.Type);
         }
 
         [Fact]
         public void GetById_ShouldReturn404_WhenNotFound()
         {
-            _serviceMock.Setup(s => s.GetById(It.IsAny<Guid>())).Returns((StockMovementReadDto?)null);
+            _serviceMock.Setup(s => s.GetById(It.IsAny<Guid>())).Returns((StockMovementDto?)null);
             var result = _controller.GetById(Guid.NewGuid());
             Assert.IsType<NotFoundResult>(result);
         }

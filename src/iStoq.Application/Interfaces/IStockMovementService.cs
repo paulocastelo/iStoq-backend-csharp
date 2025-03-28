@@ -9,10 +9,10 @@ namespace iStoq.Application.Interfaces
 {
     public interface IStockMovementService
     {
-        IEnumerable<StockMovementReadDto> GetAll();
-        StockMovementReadDto? GetById(Guid id);
-        StockMovementReadDto Create(StockMovementCreateDto dto);
-        StockMovementReadDto? Update(Guid id, StockMovementUpdateDto dto);
+        IEnumerable<StockMovementDto> GetAll();
+        StockMovementDto? GetById(Guid id);
+        StockMovementDto Create(StockMovementDto dto);
+        StockMovementDto? Update(Guid id, StockMovementDto dto);
         bool Delete(Guid id);
     }
 }

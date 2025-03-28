@@ -20,7 +20,7 @@ public class SuppliersControllerTests
     [Fact]
     public void GetAll_ShouldReturn200()
     {
-        _serviceMock.Setup(s => s.GetAll()).Returns(new List<SupplierReadDto>
+        _serviceMock.Setup(s => s.GetAll()).Returns(new List<SupplierDto>
         {
             new() { Id = Guid.NewGuid(), Name = "Fornecedor 1", CNPJ = "123", Email = "a@a.com", Phone = "123" }
         });
@@ -28,14 +28,14 @@ public class SuppliersControllerTests
         var result = _controller.GetAll();
 
         var ok = Assert.IsType<OkObjectResult>(result);
-        var list = Assert.IsAssignableFrom<IEnumerable<SupplierReadDto>>(ok.Value);
+        var list = Assert.IsAssignableFrom<IEnumerable<SupplierDto>>(ok.Value);
         Assert.Single(list);
     }
 
     [Fact]
     public void Create_ShouldReturn201()
     {
-        var input = new SupplierCreateDto
+        var input = new SupplierDto
         {
             Name = "Fornecedor Novo",
             CNPJ = "123456",
@@ -43,7 +43,7 @@ public class SuppliersControllerTests
             Phone = "9999"
         };
 
-        var output = new SupplierReadDto
+        var output = new SupplierDto
         {
             Id = Guid.NewGuid(),
             Name = "Fornecedor Novo",
@@ -57,7 +57,7 @@ public class SuppliersControllerTests
         var result = _controller.Create(input);
 
         var created = Assert.IsType<CreatedAtActionResult>(result);
-        var value = Assert.IsType<SupplierReadDto>(created.Value);
+        var value = Assert.IsType<SupplierDto>(created.Value);
         Assert.Equal("Fornecedor Novo", value.Name);
     }
 }

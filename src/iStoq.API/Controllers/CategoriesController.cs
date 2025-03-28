@@ -4,6 +4,7 @@ using iStoq.Application.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 
 namespace iStoq.API.Controllers;
+
 [Authorize]
 [ApiController]
 [Route("api/[controller]")]
@@ -27,22 +28,21 @@ public class CategoriesController : ControllerBase
             return NotFound();
         return Ok(category);
     }
-    
+
     [HttpPost]
-    public IActionResult Create(CategoryCreateDto dto)
+    public IActionResult Create(CategoryDto dto)
     {
         var created = _service.Create(dto);
-        return CreatedAtAction(nameof(GetAll), new { id = created.Id }, created);
+        return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
     }
 
     [HttpPut("{id}")]
-    public IActionResult Update(Guid id, CategoryUpdateDto dto)
+    public IActionResult Update(Guid id, CategoryDto dto)
     {
         var updated = _service.Update(id, dto);
         if (updated == null) return NotFound();
         return Ok(updated);
     }
-
 
     [HttpDelete("{id}")]
     public IActionResult Delete(Guid id)

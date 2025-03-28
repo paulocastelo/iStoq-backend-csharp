@@ -9,10 +9,11 @@ namespace iStoq.Application.Interfaces
 {
     public interface ICategoryService
     {
-        IEnumerable<CategoryReadDto> GetAll();
-        CategoryReadDto? GetById(Guid id);
-        CategoryReadDto Create(CategoryCreateDto dto);
-        CategoryReadDto? Update(Guid id, CategoryUpdateDto dto);
+        IEnumerable<CategoryDto> GetAll();
+        CategoryDto? GetById(Guid id);
+        CategoryDto Create(CategoryDto dto);
+        CategoryDto? Update(Guid id, CategoryDto dto);
         bool Delete(Guid id);
     }
+
 }

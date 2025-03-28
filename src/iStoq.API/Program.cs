@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using iStoq.API.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -80,15 +81,23 @@ builder.Services.AddScoped<IStockMovementService, StockMovementService>();
 // Serviço de autenticação
 builder.Services.AddScoped<IAuthService, AuthService>();
 
+builder.Services.AddScoped<IUserService, UserService>();
 // Banco de dados
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(connectionString));
 
+// AutoMapper
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 var app = builder.Build();
 
 // Pipeline HTTP
 app.UseHttpsRedirection();
+
+// Middleware global de tratamento de exceções
+//app.UseMiddleware<ErrorHandlingMiddleware>();
+app.UseMiddleware<ExceptionMiddleware>();
 
 // Ativa autenticação/autorizações
 app.UseAuthentication();

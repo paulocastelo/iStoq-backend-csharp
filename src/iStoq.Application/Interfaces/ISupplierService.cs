@@ -9,10 +9,10 @@ namespace iStoq.Application.Interfaces
 {
     public interface ISupplierService
     {
-        IEnumerable<SupplierReadDto> GetAll();
-        SupplierReadDto? GetById(Guid id);
-        SupplierReadDto Create(SupplierCreateDto dto);
-        SupplierReadDto? Update(Guid id, SupplierUpdateDto dto);
+        IEnumerable<SupplierDto> GetAll();
+        SupplierDto? GetById(Guid id);
+        SupplierDto Create(SupplierDto dto);
+        SupplierDto? Update(Guid id, SupplierDto dto);
         bool Delete(Guid id);
     }
 }

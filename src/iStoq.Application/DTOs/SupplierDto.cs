@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace iStoq.Application.DTOs
 {
-    public class SupplierUpdateDto
+    public class SupplierDto
     {
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; } // Opcional na criação
         public string Name { get; set; } = string.Empty;
         public string CNPJ { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;

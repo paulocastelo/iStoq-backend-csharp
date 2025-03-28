@@ -1,21 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
 using iStoq.Application.DTOs;
 using iStoq.Infrastructure.Services;
+using iStoq.Domain.Entities;
 
 namespace iStoq.Tests.Application.Services;
 
 public class ProductServiceTests
 {
+    private readonly IMapper _mapper;
+
+    public ProductServiceTests()
+    {
+        var config = new MapperConfiguration(cfg =>
+        {
+            cfg.CreateMap<Product, ProductDto>().ReverseMap();
+        });
+
+        _mapper = config.CreateMapper();
+    }
+
     [Fact]
     public void Should_Create_Product_From_DTO()
     {
-        var service = new ProductService();
+        var service = new ProductService(_mapper);
 
-        var dto = new ProductCreateDto
+        var dto = new ProductDto
         {
             Name = "Notebook",
             Description = "i5, 8GB RAM",
@@ -35,10 +44,10 @@ public class ProductServiceTests
     [Fact]
     public void Should_Return_All_Products()
     {
-        var service = new ProductService();
+        var service = new ProductService(_mapper);
 
-        service.Create(new ProductCreateDto { Name = "Teclado", Description = "", Price = 100, Stock = 10 });
-        service.Create(new ProductCreateDto { Name = "Monitor", Description = "", Price = 800, Stock = 3 });
+        service.Create(new ProductDto { Name = "Teclado", Description = "", Price = 100, Stock = 10 });
+        service.Create(new ProductDto { Name = "Monitor", Description = "", Price = 800, Stock = 3 });
 
         var all = service.GetAll().ToList();
 

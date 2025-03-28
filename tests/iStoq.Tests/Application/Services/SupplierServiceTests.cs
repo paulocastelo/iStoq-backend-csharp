@@ -1,16 +1,19 @@
-﻿using iStoq.Application.DTOs;
+﻿using AutoMapper;
+using iStoq.Application.DTOs;
 using iStoq.Infrastructure.Services;
 
 namespace iStoq.Tests.Application.Services;
 
 public class SupplierServiceTests
 {
+    private readonly IMapper _mapper;
+
     [Fact]
     public void Should_Create_Supplier_From_DTO()
     {
-        var service = new SupplierService();
+        var service = new SupplierService(_mapper);
 
-        var dto = new SupplierCreateDto
+        var dto = new SupplierDto
         {
             Name = "Fornecedor X",
             CNPJ = "11.222.333/0001-44",
@@ -28,10 +31,10 @@ public class SupplierServiceTests
     [Fact]
     public void Should_Return_All_Suppliers()
     {
-        var service = new SupplierService();
+        var service = new SupplierService(_mapper);
 
-        service.Create(new SupplierCreateDto { Name = "F1", CNPJ = "1", Email = "1", Phone = "1" });
-        service.Create(new SupplierCreateDto { Name = "F2", CNPJ = "2", Email = "2", Phone = "2" });
+        service.Create(new SupplierDto { Name = "F1", CNPJ = "1", Email = "1", Phone = "1" });
+        service.Create(new SupplierDto { Name = "F2", CNPJ = "2", Email = "2", Phone = "2" });
 
         var all = service.GetAll().ToList();
 

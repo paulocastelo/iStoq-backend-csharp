@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
 using iStoq.Application.DTOs;
 using iStoq.Application.Interfaces;
 using iStoq.Domain.Entities;
@@ -11,63 +7,44 @@ namespace iStoq.Infrastructure.Services
 {
     public class SupplierService : ISupplierService
     {
+        private readonly IMapper _mapper;
         private readonly List<Supplier> _suppliers = new();
-        public IEnumerable<SupplierReadDto> GetAll() =>
-            _suppliers.Select(s => new SupplierReadDto
-            {
-                Id = s.Id,
-                Name = s.Name,
-                CNPJ = s.CNPJ,
-                Email = s.Email,
-                Phone = s.Phone
-            });
-        public SupplierReadDto Create(SupplierCreateDto dto)
+
+        public SupplierService(IMapper mapper)
         {
-            var supplier = new Supplier(dto.Name, dto.CNPJ, dto.Email, dto.Phone);
+            _mapper = mapper;
+        }
+
+        public IEnumerable<SupplierDto> GetAll() =>
+            _suppliers.Select(s => _mapper.Map<SupplierDto>(s));
+
+        public SupplierDto Create(SupplierDto dto)
+        {
+            var supplier = _mapper.Map<Supplier>(dto);
             _suppliers.Add(supplier);
-            return new SupplierReadDto
-            {
-                Id = supplier.Id,
-                Name = supplier.Name,
-                CNPJ = supplier.CNPJ,
-                Email = supplier.Email,
-                Phone = supplier.Phone
-            };
+            return _mapper.Map<SupplierDto>(supplier);
         }
 
-        public SupplierReadDto? GetById(Guid id)
+        public SupplierDto? GetById(Guid id)
         {
-            var s = _suppliers.FirstOrDefault(s => s.Id == id);
-            return s is null ? null : new SupplierReadDto
-            {
-                Id = s.Id,
-                Name = s.Name,
-                CNPJ = s.CNPJ,
-                Email = s.Email,
-                Phone = s.Phone
-            };
+            var supplier = _suppliers.FirstOrDefault(s => s.Id == id);
+            return supplier is null ? null : _mapper.Map<SupplierDto>(supplier);
         }
 
-        public SupplierReadDto? Update(Guid id, SupplierUpdateDto dto)
+        public SupplierDto? Update(Guid id, SupplierDto dto)
         {
-            var s = _suppliers.FirstOrDefault(s => s.Id == id);
-            if (s is null) return null;
-            s.Update(dto.Name, dto.CNPJ, dto.Email, dto.Phone);
-            return new SupplierReadDto
-            {
-                Id = s.Id,
-                Name = s.Name,
-                CNPJ = s.CNPJ,
-                Email = s.Email,
-                Phone = s.Phone
-            };
+            var supplier = _suppliers.FirstOrDefault(s => s.Id == id);
+            if (supplier is null) return null;
+
+            supplier.Update(dto.Name, dto.CNPJ, dto.Email, dto.Phone);
+            return _mapper.Map<SupplierDto>(supplier);
         }
 
         public bool Delete(Guid id)
         {
-            var s = _suppliers.FirstOrDefault(s => s.Id == id);
-            if (s is null) return false;
-            _suppliers.Remove(s);
+            var supplier = _suppliers.FirstOrDefault(s => s.Id == id);
+            if (supplier is null) return false;
+            _suppliers.Remove(supplier);
             return true;
         }
     }

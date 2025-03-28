@@ -20,7 +20,7 @@ public class CategoriesControllerTests
     [Fact]
     public void GetAll_ShouldReturn200_WithList()
     {
-        _serviceMock.Setup(s => s.GetAll()).Returns(new List<CategoryReadDto>
+        _serviceMock.Setup(s => s.GetAll()).Returns(new List<CategoryDto>
         {
             new() { Id = Guid.NewGuid(), Name = "Categoria X", Description = "Teste" }
         });
@@ -28,22 +28,22 @@ public class CategoriesControllerTests
         var result = _controller.GetAll();
 
         var ok = Assert.IsType<OkObjectResult>(result);
-        var list = Assert.IsAssignableFrom<IEnumerable<CategoryReadDto>>(ok.Value);
+        var list = Assert.IsAssignableFrom<IEnumerable<CategoryDto>>(ok.Value);
         Assert.Single(list);
     }
 
     [Fact]
     public void Create_ShouldReturn201()
     {
-        var input = new CategoryCreateDto { Name = "Nova", Description = "Nova cat" };
-        var output = new CategoryReadDto { Id = Guid.NewGuid(), Name = "Nova", Description = "Nova cat" };
+        var input = new CategoryDto { Name = "Nova", Description = "Nova cat" };
+        var output = new CategoryDto { Id = Guid.NewGuid(), Name = "Nova", Description = "Nova cat" };
 
         _serviceMock.Setup(s => s.Create(input)).Returns(output);
 
         var result = _controller.Create(input);
 
         var created = Assert.IsType<CreatedAtActionResult>(result);
-        var value = Assert.IsType<CategoryReadDto>(created.Value);
+        var value = Assert.IsType<CategoryDto>(created.Value);
         Assert.Equal("Nova", value.Name);
     }
 
@@ -51,18 +51,18 @@ public class CategoriesControllerTests
     public void GetById_ShouldReturnOk_WhenExists()
     {
         var id = Guid.NewGuid();
-        var category = new CategoryReadDto { Id = id, Name = "Categoria X", Description = "Teste" };
+        var category = new CategoryDto { Id = id, Name = "Categoria X", Description = "Teste" };
         _serviceMock.Setup(s => s.GetById(id)).Returns(category);
         var result = _controller.GetById(id);
         var ok = Assert.IsType<OkObjectResult>(result);
-        var value = Assert.IsType<CategoryReadDto>(ok.Value);
+        var value = Assert.IsType<CategoryDto>(ok.Value);
         Assert.Equal("Categoria X", value.Name);
     }
     [Fact]
     public void GetById_ShouldReturn404_WhenNotFound()
     {
         var id = Guid.NewGuid();
-        _serviceMock.Setup(s => s.GetById(id)).Returns((CategoryReadDto?)null);
+        _serviceMock.Setup(s => s.GetById(id)).Returns((CategoryDto?)null);
         var result = _controller.GetById(id);
         Assert.IsType<NotFoundResult>(result);
     }
@@ -70,12 +70,12 @@ public class CategoriesControllerTests
     public void Update_ShouldReturnOk_WhenSuccessful()
     {
         var id = Guid.NewGuid();
-        var input = new CategoryUpdateDto { Name = "Nova", Description = "Nova cat" };
-        var output = new CategoryReadDto { Id = id, Name = "Nova", Description = "Nova cat" };
+        var input = new CategoryDto { Name = "Nova", Description = "Nova cat" };
+        var output = new CategoryDto { Id = id, Name = "Nova", Description = "Nova cat" };
         _serviceMock.Setup(s => s.Update(id, input)).Returns(output);
         var result = _controller.Update(id, input);
         var ok = Assert.IsType<OkObjectResult>(result);
-        var value = Assert.IsType<CategoryReadDto>(ok.Value);
+        var value = Assert.IsType<CategoryDto>(ok.Value);
         Assert.Equal("Nova", value.Name);
     }
 

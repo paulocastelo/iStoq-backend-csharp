@@ -20,13 +20,13 @@ public class SuppliersController : ControllerBase
     public IActionResult GetAll() => Ok(_service.GetAll());
 
     [HttpPost]
-    public IActionResult Create(SupplierCreateDto dto)
+    public IActionResult Create(SupplierDto dto)
     {
         var created = _service.Create(dto);
         return CreatedAtAction(nameof(GetAll), new { id = created.Id }, created);
     }
     [HttpPut("{id}")]
-    public IActionResult Update(Guid id, SupplierUpdateDto dto)
+    public IActionResult Update(Guid id, SupplierDto dto)
     {
         var updated = _service.Update(id, dto);
         if (updated == null) return NotFound();

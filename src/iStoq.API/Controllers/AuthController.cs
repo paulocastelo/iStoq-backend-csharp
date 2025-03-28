@@ -1,4 +1,5 @@
 ﻿using iStoq.Application.DTOs;
+using iStoq.Application.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -12,25 +13,28 @@ namespace iStoq.API.Controllers;
 [Route("api/[controller]")]
 public class AuthController : ControllerBase
 {
+    private readonly IUserService _userService;
     private readonly IConfiguration _configuration;
 
-    public AuthController(IConfiguration configuration)
+    public AuthController(IUserService userService, IConfiguration configuration)
     {
+        _userService = userService;
         _configuration = configuration;
     }
 
     [HttpPost("login")]
-    public IActionResult Login([FromBody] LoginRequestDto login)
+    [AllowAnonymous]
+    public async Task<IActionResult> Login([FromBody] LoginRequestDto login)
     {
-        // Aqui usamos login fixo apenas como exemplo
-        if (login.Username != "admin" || login.Password != "admin123")
+        var user = await _userService.Authenticate(login.Username, login.Password);
+        if (user is null)
             return Unauthorized(new { message = "Credenciais inválidas" });
 
         var claims = new[]
         {
-            new Claim(ClaimTypes.Name, login.Username),
-            new Claim(ClaimTypes.Role, "Admin")
-        };
+        new Claim(ClaimTypes.Name, user.Username),
+        new Claim(ClaimTypes.Role, user.Role)
+    };
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -44,5 +48,13 @@ public class AuthController : ControllerBase
         var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
 
         return Ok(new { token = tokenString });
+    }
+
+    [HttpPost("register")]
+    [AllowAnonymous]
+    public async Task<IActionResult> Register(UserDto dto)
+    {
+        var user = await _userService.Register(dto);
+        return Ok(new { user.Id, user.Username, user.Email });
     }
 }

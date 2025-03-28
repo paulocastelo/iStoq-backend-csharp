@@ -9,10 +9,10 @@ namespace iStoq.Application.Interfaces;
 
 public interface IProductService
 {
-    IEnumerable<ProductReadDto> GetAll();
-    ProductReadDto? GetById(Guid id);
-    ProductReadDto Create(ProductCreateDto dto);
-    ProductReadDto? Update(Guid id, ProductUpdateDto dto);
+    IEnumerable<ProductDto> GetAll();
+    ProductDto? GetById(Guid id);
+    ProductDto Create(ProductDto dto);
+    ProductDto? Update(Guid id, ProductDto dto);
     bool Delete(Guid id);
 }
 

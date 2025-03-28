@@ -33,14 +33,14 @@ public class StockMovementsController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Create(StockMovementCreateDto dto)
+    public IActionResult Create(StockMovementDto dto)
     {
         var movement = _service.Create(dto);
         return CreatedAtAction(nameof(GetById), new { id = movement.Id }, movement);
     }
 
     [HttpPut("{id}")]
-    public IActionResult Update(Guid id, StockMovementUpdateDto dto)
+    public IActionResult Update(Guid id, StockMovementDto dto)
     {
         var movement = _service.Update(id, dto);
         if (movement == null)

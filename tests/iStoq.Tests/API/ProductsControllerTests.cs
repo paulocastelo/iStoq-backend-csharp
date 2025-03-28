@@ -21,7 +21,7 @@ namespace iStoq.Tests.API.Controllers
         [Fact]
         public void GetAll_ShouldReturn200_WithList()
         {
-            _serviceMock.Setup(s => s.GetAll()).Returns(new List<ProductReadDto>
+            _serviceMock.Setup(s => s.GetAll()).Returns(new List<ProductDto>
             {
                 new() { Id = Guid.NewGuid(), Name = "Produto Teste", Description = "Desc", Price = 10, Stock = 1 }
             });
@@ -29,14 +29,14 @@ namespace iStoq.Tests.API.Controllers
             var result = _controller.GetAll();
 
             var okResult = Assert.IsType<OkObjectResult>(result);
-            var value = Assert.IsAssignableFrom<IEnumerable<ProductReadDto>>(okResult.Value);
+            var value = Assert.IsAssignableFrom<IEnumerable<ProductDto>>(okResult.Value);
             Assert.Single(value);
         }
 
         [Fact]
         public void Create_ShouldReturn201_AndReturnCreatedProduct()
         {
-            var input = new ProductCreateDto
+            var input = new ProductDto
             {
                 Name = "Produto Novo",
                 Description = "Descrição",
@@ -44,7 +44,7 @@ namespace iStoq.Tests.API.Controllers
                 Stock = 5
             };
 
-            var output = new ProductReadDto
+            var output = new ProductDto
             {
                 Id = Guid.NewGuid(),
                 Name = "Produto Novo",
@@ -58,14 +58,14 @@ namespace iStoq.Tests.API.Controllers
             var result = _controller.Create(input);
 
             var created = Assert.IsType<CreatedAtActionResult>(result);
-            var value = Assert.IsType<ProductReadDto>(created.Value);
+            var value = Assert.IsType<ProductDto>(created.Value);
             Assert.Equal("Produto Novo", value.Name);
         }
 
         [Fact]
         public void GetById_ShouldReturn404_IfNotFound()
         {
-            _serviceMock.Setup(s => s.GetById(It.IsAny<Guid>())).Returns((ProductReadDto?)null);
+            _serviceMock.Setup(s => s.GetById(It.IsAny<Guid>())).Returns((ProductDto?)null);
 
             var result = _controller.GetById(Guid.NewGuid());
 
@@ -76,21 +76,21 @@ namespace iStoq.Tests.API.Controllers
         public void GetById_ShouldReturnOk_WhenExists()
         {
             var id = Guid.NewGuid();
-            var dto = new ProductReadDto { Id = id, Name = "Produto X", Description = "", Price = 10, Stock = 5 };
+            var dto = new ProductDto { Id = id, Name = "Produto X", Description = "", Price = 10, Stock = 5 };
 
             _serviceMock.Setup(s => s.GetById(id)).Returns(dto);
 
             var result = _controller.GetById(id);
 
             var ok = Assert.IsType<OkObjectResult>(result);
-            var value = Assert.IsType<ProductReadDto>(ok.Value);
+            var value = Assert.IsType<ProductDto>(ok.Value);
             Assert.Equal("Produto X", value.Name);
         }
 
         [Fact]
         public void GetById_ShouldReturn404_WhenNotFound()
         {
-            _serviceMock.Setup(s => s.GetById(It.IsAny<Guid>())).Returns((ProductReadDto?)null);
+            _serviceMock.Setup(s => s.GetById(It.IsAny<Guid>())).Returns((ProductDto?)null);
 
             var result = _controller.GetById(Guid.NewGuid());
 
@@ -102,14 +102,14 @@ namespace iStoq.Tests.API.Controllers
         {
             // Arrange
             var id = Guid.NewGuid();
-            var input = new ProductUpdateDto
+            var input = new ProductDto
             {
                 Name = "Produto Atualizado",
                 Description = "Desc",
                 Price = 100,
                 Stock = 10
             };
-            var output = new ProductReadDto
+            var output = new ProductDto
             {
                 Id = id,
                 Name = "Produto Atualizado",
@@ -122,7 +122,7 @@ namespace iStoq.Tests.API.Controllers
             var result = _controller.Update(id, input);
             // Assert
             var ok = Assert.IsType<OkObjectResult>(result);
-            var value = Assert.IsType<ProductReadDto>(ok.Value);
+            var value = Assert.IsType<ProductDto>(ok.Value);
             Assert.Equal("Produto Atualizado", value.Name);
         }
 
@@ -131,7 +131,7 @@ namespace iStoq.Tests.API.Controllers
         {
             // Arrange
             var id = Guid.NewGuid();
-            var input = new ProductUpdateDto
+            var input = new ProductDto
             {
                 Name = "Inexistente",
                 Description = "Desc",
@@ -139,7 +139,7 @@ namespace iStoq.Tests.API.Controllers
                 Stock = 10
             };
 
-            _serviceMock.Setup(s => s.Update(id, input)).Returns((ProductReadDto?)null);
+            _serviceMock.Setup(s => s.Update(id, input)).Returns((ProductDto?)null);
 
             // Act
             var result = _controller.Update(id, input);
